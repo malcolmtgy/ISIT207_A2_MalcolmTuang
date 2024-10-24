@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZoom Car Rental - Reserve</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="reserve.html">Reserve/Return</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Reservation Form -->
+    <section id="car-reservation">
+        <h2>Reserve a Car</h2>
+        <form id="reservationForm" onsubmit="submitReservation(event)">
+            <label for="carModel">Select Car Model:</label>
+            <select id="carModel" required>
+                <option value="Sedan">Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="Sports">Sports</option>
+                <option value="Compact">Compact</option>
+            </select>
+
+            <label for="rentalPeriod">Select Rental Period:</label>
+            <select id="rentalPeriod" required>
+                <option value="12 hours">12 hours</option>
+                <option value="1 day">1 day</option>
+                <option value="1 week">1 week</option>
+            </select>
+
+            <label for="pickupBranch">Select Pickup Branch:</label>
+            <select id="pickupBranch" required>
+                <option value="City">Orchard Road</option>
+                <option value="Airport">Changi Airport</option>
+                <option value="Suburb">Jurong East</option>
+                <option value="Downtown">Marina Bay</option>
+                <option value="Downtown">Sentosa</option>
+            </select>
+            
+            <label for="creditCard">Credit Card Number:</label>
+            <input type="text" id="creditCard" required placeholder="1234 5678 9012 3456" />
+            <button type="submit">Reserve Now</button>
+        </form>
+    </section>
+
+    <!-- Car Return Section -->
+    <section id="car-return">
+        <h2>Return a Car</h2>
+        <p>Take a picture of your car at the designated car park and upload it below.</p>
+        <form id="returnForm" onsubmit="submitReturn(event)">
+            <label for="carImage">Upload Car Image:</label>
+            <input type="file" id="carImage" accept="image/*" required />
+    
+            <label for="carCondition">Select Car Condition:</label>
+            <select id="carCondition" required>
+                <option value="No Damage">No Damage</option>
+                <option value="Minor Damage">Minor Damage</option>
+                <option value="Major Damage">Major Damage</option>
+            </select>
+    
+            <button type="submit">Submit Return</button>
+        </form>
+    
+        <!-- Final bill display -->
+        <div id="finalBillDisplay" style="display:none;">
+            <h3>Final Bill</h3>
+            <p id="finalBillAmount"></p>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
