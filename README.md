@@ -1,1 +1,3 @@
-# isit207ass2.io
+# ISIT207 Assignment 2
+
+Website for A2 of ISIT207
