@@ -78,7 +78,7 @@ section {
 
 .hero-content .btn {
     padding: 12px 30px;
-    background-color: #00796b;
+    background-color: #242424;
     color: white;
     text-decoration: none;
     border-radius: 6px;
@@ -87,7 +87,7 @@ section {
 }
 
 .hero-content .btn:hover {
-    background-color: #004d40;
+    background-color: #747474;
 }
 
 /* Car Types Section */
@@ -152,7 +152,7 @@ form select:focus {
 
 form button {
     padding: 12px 20px;
-    background-color: #00796b;
+    background-color: #747474;
     color: white;
     border: none;
     border-radius: 6px;
@@ -162,13 +162,13 @@ form button {
 }
 
 form button:hover {
-    background-color: #004d40;
+    background-color: #525252;
 }
 
 /* Bill Section */
 
 #finalBillDisplay {
-    border: 2px solid #4CAF50;
+    border: 2px solid #686868;
     padding: 10px;
     margin-top: 20px;
     background-color: #f9f9f9;
