@@ -144,3 +144,29 @@ function submitReturn(event) {
     
     alert('Car return submitted successfully. Final bill is being calculated.');
 }
+
+// Reservation submission function
+function submitReservation(event) {
+    event.preventDefault();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const carType = urlParams.get("carType");
+    const pickupBranch = document.getElementById("pickupBranch").value;
+    const reservationId = generateReservationId();
+
+    const reservationDetails = {
+        reservationId,
+        carType,
+        pricePerDay: carPrices[carType],
+        pickupBranch,
+        status: "Reserved"
+    };
+
+    localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
+    alert("Reservation successful! Your Reservation ID is: " + reservationId);
+}
+
+// Utility to generate a random reservation ID
+function generateReservationId() {
+    return 'AZR' + Math.floor(Math.random() * 10000);
+}
