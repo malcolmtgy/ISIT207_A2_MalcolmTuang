@@ -119,6 +119,21 @@ function calculateFinalBill(rentalPeriod, carCondition) {
     return baseCost + damageCost;
 }
 
+// On page load, populate the car type and price
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const carType = urlParams.get("carType");
+
+    if (carType && carPrices[carType]) {
+        document.getElementById("selectedCarType").textContent = carType;
+        document.getElementById("carPrice").textContent = carPrices[carType];
+    } else {
+        alert("Car type not specified. Returning to car selection page.");
+        window.location.href = "cars.html";
+    }
+});
+
+
 // Car return submission logic with billing
 function submitReturn(event) {
     event.preventDefault();
