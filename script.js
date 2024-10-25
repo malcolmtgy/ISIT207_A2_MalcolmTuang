@@ -1,36 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Populate car type and price on reservation page load
-    const urlParams = new URLSearchParams(window.location.search);
-    const carType = urlParams.get("carType");
-
-    if (carType && carPrices[carType]) {
-        const selectedCarTypeElement = document.getElementById("selectedCarType");
-        const carPriceElement = document.getElementById("carPrice");
-
-        if (selectedCarTypeElement && carPriceElement) {
-            selectedCarTypeElement.textContent = carType;
-            carPriceElement.textContent = carPrices[carType];
-        }
-    } else {
-        alert("Car type not specified. Returning to car selection page.");
-        window.location.href = "cars.html";
-    }
-
-    // Initialize the register and login form event listeners if they exist on the page
-    const registerForm = document.getElementById('registerForm');
-    if (registerForm) {
-        registerForm.addEventListener('submit', handleRegister);
-    }
-
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
-    }
-
-    const returnForm = document.getElementById('returnForm');
-    if (returnForm) {
-        returnForm.addEventListener('submit', submitReturn);
-    }
+    // Populate car type and price on reservation page load 
+    if(window.location.pathname.endsWith("reservation.html"))   
+    {   
+    const urlParams = new URLSearchParams(window.location.search);  
+    const carType = urlParams.get("carTyp   e");
+        
+    if (carType && carPrices[carType]) {    
+        const selectedCarTypeElement = document.getElementById("selectedCarType");  
+        const carPriceElement = document.getElementById("carPric    e");
+        
+        if (selectedCarTypeElement && carPriceElement) {    
+            selectedCarTypeElement.textContent = carType;   
+            carPriceElement.textContent = carPrices[carType];   
+        }   
+    } else {    
+        alert("Car type not specified. Returning to car selection page.");  
+        window.location.href = "cars.html"; 
+       }
+    
+    // Initialize the register and login form event listeners if they exist on the page 
+    const registerForm = document.getElementById('registerForm');   
+    if (registerForm) { 
+        registerForm.addEventListener('submit', handleRegister);    
+       }
+    
+    const loginForm = document.getElementById('loginForm'); 
+    if (loginForm) {    
+        loginForm.addEventListener('submit', handleLogin);  
+       }
+    
+    const returnForm = document.getElementById('returnForm');   
+    if (returnForm) {   
+        returnForm.addEventListener('submit', submitReturn);    
+      }
+    }   
 });
 
 // Registration form handler
