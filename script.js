@@ -1,28 +1,31 @@
+// Immediately stop the script if not on reservation.html
+if (!window.location.pathname.endsWith("reservation.html")) {
+    // Stop execution if the path isn't reservation.html
+    return;
+}
+
+// Only runs if on reservation.html
 document.addEventListener("DOMContentLoaded", () => {
-    // Check if we are on the reservation page
-    if (window.location.pathname.endsWith("reservation.html")) {
-        initializeReservationPage();
-    }
-
-    // Initialize the register form event listener if on the registration page
-    const registerForm = document.getElementById('registerForm');
-    if (registerForm) {
-        registerForm.addEventListener('submit', handleRegister);
-    }
-
-    // Initialize the login form event listener if on the login page
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
-    }
-
-    // Initialize the return form event listener if on the return page
-    const returnForm = document.getElementById('returnForm');
-    if (returnForm) {
-        returnForm.addEventListener('submit', submitReturn);
-    }
+    initializeReservationPage();
 });
 
+function initializeReservationPage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const carType = urlParams.get("carType");
+
+    if (carType && carPrices[carType]) {
+        const selectedCarTypeElement = document.getElementById("selectedCarType");
+        const carPriceElement = document.getElementById("carPrice");
+
+        if (selectedCarTypeElement && carPriceElement) {
+            selectedCarTypeElement.textContent = carType;
+            carPriceElement.textContent = carPrices[carType];
+        }
+    } else {
+        alert("Car type not specified. Returning to car selection page.");
+        window.location.href = "cars.html";
+    }
+}
 // --- Reservation Page Initialization ---
 function initializeReservationPage() {
     const urlParams = new URLSearchParams(window.location.search);
