@@ -1,42 +1,48 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Populate car type and price on reservation page load 
-    if(window.location.pathname.endsWith("reservation.html"))   
-    {   
-    const urlParams = new URLSearchParams(window.location.search);  
-    const carType = urlParams.get("carTyp   e");
-        
-    if (carType && carPrices[carType]) {    
-        const selectedCarTypeElement = document.getElementById("selectedCarType");  
-        const carPriceElement = document.getElementById("carPric    e");
-        
-        if (selectedCarTypeElement && carPriceElement) {    
-            selectedCarTypeElement.textContent = carType;   
-            carPriceElement.textContent = carPrices[carType];   
-        }   
-    } else {    
-        alert("Car type not specified. Returning to car selection page.");  
-        window.location.href = "cars.html"; 
-       }
-    
-    // Initialize the register and login form event listeners if they exist on the page 
-    const registerForm = document.getElementById('registerForm');   
-    if (registerForm) { 
-        registerForm.addEventListener('submit', handleRegister);    
-       }
-    
-    const loginForm = document.getElementById('loginForm'); 
-    if (loginForm) {    
-        loginForm.addEventListener('submit', handleLogin);  
-       }
-    
-    const returnForm = document.getElementById('returnForm');   
-    if (returnForm) {   
-        returnForm.addEventListener('submit', submitReturn);    
-      }
-    }   
+    // Check if we are on the reservation page
+    if (window.location.pathname.endsWith("reservation.html")) {
+        initializeReservationPage();
+    }
+
+    // Initialize the register form event listener if on the registration page
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) {
+        registerForm.addEventListener('submit', handleRegister);
+    }
+
+    // Initialize the login form event listener if on the login page
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+
+    // Initialize the return form event listener if on the return page
+    const returnForm = document.getElementById('returnForm');
+    if (returnForm) {
+        returnForm.addEventListener('submit', submitReturn);
+    }
 });
 
-// Registration form handler
+// --- Reservation Page Initialization ---
+function initializeReservationPage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const carType = urlParams.get("carType");
+
+    if (carType && carPrices[carType]) {
+        const selectedCarTypeElement = document.getElementById("selectedCarType");
+        const carPriceElement = document.getElementById("carPrice");
+
+        if (selectedCarTypeElement && carPriceElement) {
+            selectedCarTypeElement.textContent = carType;
+            carPriceElement.textContent = carPrices[carType];
+        }
+    } else {
+        alert("Car type not specified. Returning to car selection page.");
+        window.location.href = "cars.html";
+    }
+}
+
+// --- Registration Form Handler ---
 function handleRegister(event) {
     event.preventDefault();
     const regUsername = document.getElementById('regUsername').value;
@@ -57,10 +63,9 @@ function handleRegister(event) {
     window.location.href = 'login.html';
 }
 
-// Login form handler
+// --- Login Form Handler ---
 function handleLogin(event) {
     event.preventDefault();
-
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const storedUsername = localStorage.getItem('username');
@@ -75,13 +80,12 @@ function handleLogin(event) {
     }
 }
 
-// Car return submission function with final bill calculation
+// --- Car Return Submission with Final Bill Calculation ---
 function submitReturn(event) {
     event.preventDefault();
-
     const carImage = document.getElementById('carImage').files[0];
     const carCondition = document.getElementById('carCondition').value;
-    const rentalPeriod = "1 day"; // Hardcoded for example, can be dynamic
+    const rentalPeriod = "1 day"; // Can be dynamic based on user input
 
     if (!carImage) {
         alert('Please upload a picture of the car before submitting.');
@@ -89,13 +93,12 @@ function submitReturn(event) {
     }
 
     const finalBill = calculateFinalBill(rentalPeriod, carCondition);
-
     document.getElementById('finalBillDisplay').style.display = 'block';
     document.getElementById('finalBillAmount').innerText = `Your final bill is $${finalBill}.`;
     alert('Car return submitted successfully. Final bill calculated.');
 }
 
-// Utility to calculate final bill based on rental period and car condition
+// --- Utility to Calculate Final Bill ---
 function calculateFinalBill(rentalPeriod, carCondition) {
     let baseCost = 0;
     switch (rentalPeriod) {
