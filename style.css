@@ -37,7 +37,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: #004d40;
+    background-color: #3f3f3f;
 }
 
 /* Section styles */
@@ -78,7 +78,7 @@ section {
 
 .hero-content .btn {
     padding: 12px 30px;
-    background-color: #00796b;
+    background-color: #292929;
     color: white;
     text-decoration: none;
     border-radius: 6px;
