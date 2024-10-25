@@ -52,24 +52,6 @@
         <form id="returnForm" onsubmit="submitReturn(event)">
             <label for="carImage">Upload Car Image:</label>
             <input type="file" id="carImage" accept="image/*" required />
-    
-            <label for="carCondition">Select Car Condition:</label>
-            <select id="carCondition" required>
-                <option value="No Damage">No Damage</option>
-                <option value="Minor Damage">Minor Damage</option>
-                <option value="Major Damage">Major Damage</option>
-            </select>
-    
-            <button type="submit">Submit Return</button>
-        </form>
-    
-        <!-- Final bill display -->
-        <div id="finalBillDisplay" style="display:none;">
-            <h3>Final Bill</h3>
-            <p id="finalBillAmount"></p>
-        </div>
-    </section>
-
     <script src="script.js"></script>
 </body>
 </html>

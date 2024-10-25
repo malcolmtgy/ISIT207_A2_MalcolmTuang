@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZoom Car Rental - Inspection</title>
+</head>
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cars.html">Cars</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="inspect.html">Inspect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+<!-- Car Inspection Section -->
+<section id="car-inspection">
+    <h2>Inspect Returned Car</h2>
+    <form id="inspectionForm" onsubmit="submitInspection(event)">
+        <label for="inspectionReservationId">Reservation ID:</label>
+        <input type="text" id="inspectionReservationId" required>
+
+        <label for="inspectionCarCondition">Car Condition After Inspection:</label>
+        <select id="inspectionCarCondition" required>
+            <option value="No Damage">No Damage</option>
+            <option value="Minor Damage">Minor Damage</option>
+            <option value="Major Damage">Major Damage</option>
+        </select>
+
+        <button type="submit">Submit Inspection</button>
+    </form>
+</section>
