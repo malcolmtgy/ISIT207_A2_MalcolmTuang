@@ -9,6 +9,23 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeReservationPage();
 });
 
+function initializeReservationPage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const carType = urlParams.get("carType");
+
+    if (carType && carPrices[carType]) {
+        const selectedCarTypeElement = document.getElementById("selectedCarType");
+        const carPriceElement = document.getElementById("carPrice");
+
+        if (selectedCarTypeElement && carPriceElement) {
+            selectedCarTypeElement.textContent = carType;
+            carPriceElement.textContent = carPrices[carType];
+        }
+    } else {
+        alert("Car type not specified. Returning to car selection page.");
+        window.location.href = "cars.html";
+    }
+}
 // --- Reservation Page Initialization ---
 function initializeReservationPage() {
     const urlParams = new URLSearchParams(window.location.search);
