@@ -41,7 +41,7 @@ function submitReturn(event) {
     event.preventDefault();
     const carImage = document.getElementById('carImage').files[0];
     const carCondition = document.getElementById('carCondition').value;
-    const rentalPeriod = "1 day"; // Can be dynamic based on user input
+    const rentalPeriod = " "; // Can be dynamic based on user input
 
     if (!carImage) {
         alert('Please upload a picture of the car before submitting.');
