@@ -13,6 +13,7 @@
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
+                <li><a href="cars.html">Cars</a></li>
                 <li><a href="reserve.html">Reserve/Return</a></li>
                 <li><a href="login.html">Login</a></li>
                 <li><a href="register.html">Register</a></li>
@@ -25,20 +26,8 @@
     <section id="car-reservation">
         <h2>Reserve a Car</h2>
         <form id="reservationForm" onsubmit="submitReservation(event)">
-            <label for="carModel">Select Car Model:</label>
-            <select id="carModel" required>
-                <option value="Sedan">Sedan</option>
-                <option value="SUV">SUV</option>
-                <option value="Sports">Sports</option>
-                <option value="Compact">Compact</option>
-            </select>
-
-            <label for="rentalPeriod">Select Rental Period:</label>
-            <select id="rentalPeriod" required>
-                <option value="12 hours">12 hours</option>
-                <option value="1 day">1 day</option>
-                <option value="1 week">1 week</option>
-            </select>
+            <p><strong>Selected Car:</strong> <span id="selectedCarType"></span></p>
+            <p><strong>Price per Day:</strong> $<span id="carPrice"></span></p>
 
             <label for="pickupBranch">Select Pickup Branch:</label>
             <select id="pickupBranch" required>
@@ -46,14 +35,15 @@
                 <option value="Airport">Changi Airport</option>
                 <option value="Suburb">Jurong East</option>
                 <option value="Downtown">Marina Bay</option>
-                <option value="Downtown">Sentosa</option>
+                <option value="Sentosa">Sentosa</option>
             </select>
-            
-            <label for="creditCard">Credit Card Number:</label>
-            <input type="text" id="creditCard" required placeholder="1234 5678 9012 3456" />
+
             <button type="submit">Reserve Now</button>
         </form>
     </section>
+
+    <script src="script.js"></script>
+</body>
 
     <!-- Car Return Section -->
     <section id="car-return">
