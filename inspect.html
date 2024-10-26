@@ -23,26 +23,27 @@
         </nav>
     </header>
 
-<body>
-    <section id="inspection-section">
-        <h2>Inspect Returned Car</h2>
-        <!-- Inspection Form -->
-        <form id="inspectionForm" onsubmit="submitInspection(event)">
-            <div>
-                <label for="inspectionReservationId">Reservation ID:</label>
-                <input type="text" id="inspectionReservationId" required>
-            </div>
-            
-            <div>
-                <label for="inspectionCarCondition">Car Condition After Inspection:</label>
-                    <select id="inspectionCarCondition" required>
-                        <option value="No Damage">No Damage</option>
-                        <option value="Minor Damage">Minor Damage</option>
-                        <option value="Major Damage">Major Damage</option>
-                    </select>
-            </div>
-                <button type="submit">Submit Inspection</button>
-        </form>
+    <body>
+        <section id="inspection-section">
+            <h2>Inspect Returned Car</h2>
+            <!-- Inspection Form -->
+            <form id="inspectionForm" onsubmit="submitInspection(event)">
+                <div>
+                    <label for="inspectionReservationId">Reservation ID:</label>
+                    <input type="text" id="inspectionReservationId" required>
+                </div>
+
+                <div>
+                    <label for="inspectionCarCondition">Car Condition After Inspection:</label>
+                        <select id="inspectionCarCondition" required>
+                            <option value="No Damage">No Damage</option>
+                            <option value="Minor Damage">Minor Damage</option>
+                            <option value="Major Damage">Major Damage</option>
+                        </select>
+                </div>
+                    <button type="submit">Submit Inspection</button>
+            </form>
+        </section>
         <script src="script.js"></script>
-    </section>
-</body>
+    </body>
+</html>
