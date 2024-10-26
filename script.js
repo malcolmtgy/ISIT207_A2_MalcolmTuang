@@ -97,48 +97,28 @@ function generateReservationId() {
 }
 
 // --- Submit Inspection ---
+
 function submitInspection(event) {
     event.preventDefault();
 
     const reservationId = document.getElementById("inspectionReservationId").value;
     const carCondition = document.getElementById("inspectionCarCondition").value;
-    const reservationData = localStorage.getItem(reservationId);
 
+    const reservationData = localStorage.getItem(reservationId);
     if (!reservationData) {
-        // Error popup if reservation ID is not found
-        alert("Error: Reservation ID not found. Please check and try again.");
+        alert("Reservation ID not found. Please check and try again.");
         return;
     }
 
-    const reservationDetails = JSON.parse(reservationData);
-
-    // Calculate damage cost based on car condition
-    let damageCost = 0;
-    if (carCondition === "Minor Damage") {
-        damageCost = 100;
-    } else if (carCondition === "Major Damage") {
-        damageCost = 500;
-    }
-
-    const finalBill = reservationDetails.pricePerDay + damageCost;
-
-    // Show success message with final bill amount
-    alert(`Inspection successful! Final bill for Reservation ID ${reservationId} is $${finalBill}.`);
-    window.finalBill = finalBill; // Save final bill for payment
+    // Show alert that inspection is complete
+    alert(`Inspection complete for Reservation ID ${reservationId}. Condition: ${carCondition}`);
+    
+    // Optionally clear the form after submission
+    document.getElementById("inspectionForm").reset();
 }
 
-// --- Display Final Bill ---
-document.addEventListener("DOMContentLoaded", () => {
-    if (window.finalBill) {
-        document.getElementById("finalBillDisplay").style.display = "block";
-        document.getElementById("finalBillAmount").innerText = `Your final bill is $${finalBill}`;
-    } else {
-        document.getElementById("finalBillDisplay").style.display = "none";
-    }
-});
 
 // --- Payment Handler ---
-f// Process Payment Function
 function processPayment(event) {
     event.preventDefault();
     
