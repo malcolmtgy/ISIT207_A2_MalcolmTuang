@@ -131,4 +131,8 @@ function submitInspection(event) {
     reservationDetails.finalBill = finalBill;
     reservationDetails.carCondition = carCondition;
     localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
+
+     // Display success message and final bill
+     document.getElementById("inspectionSuccessMessage").innerText = `Inspection submission complete. Final bill for Reservation ID ${reservationId} is $${finalBill}.`;
+     document.getElementById("inspectionSuccessMessage").style.display = "block";
 }
