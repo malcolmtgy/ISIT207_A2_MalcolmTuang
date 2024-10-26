@@ -121,23 +121,39 @@ function submitInspection(event) {
     }
 
     const finalBill = reservationDetails.pricePerDay + damageCost;
-    reservationDetails.finalBill = finalBill;
-    reservationDetails.status = "Inspected";
 
-    localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
-    localStorage.setItem("currentFinalBill", finalBill);  // Set final bill for retrieval
-
-    alert(`Inspection complete!`);
+    // Show success message with final bill amount
+    alert(`Inspection successful! Final bill for Reservation ID ${reservationId} is $${finalBill}.`);
+    window.finalBill = finalBill; // Save final bill for payment
 }
 
 // --- Display Final Bill ---
 document.addEventListener("DOMContentLoaded", () => {
-    const finalBill = localStorage.getItem("currentFinalBill");
-
-    if (finalBill) {
+    if (window.finalBill) {
         document.getElementById("finalBillDisplay").style.display = "block";
         document.getElementById("finalBillAmount").innerText = `Your final bill is $${finalBill}`;
     } else {
         document.getElementById("finalBillDisplay").style.display = "none";
     }
 });
+
+// --- Payment Handler ---
+f// Process Payment Function
+function processPayment(event) {
+    event.preventDefault();
+    
+    const creditCardNumber = document.getElementById("creditCardNumber").value;
+    const expiryDate = document.getElementById("expiryDate").value;
+    const cvv = document.getElementById("cvv").value;
+
+    // Validate payment details (basic validation)
+    if (creditCardNumber.length < 16 || cvv.length < 3) {
+        alert('Please enter valid payment details.');
+        return;
+    }
+
+    alert('Payment successful! Thank you for your transaction.');
+    document.getElementById("paymentForm").reset();
+}
+
+
