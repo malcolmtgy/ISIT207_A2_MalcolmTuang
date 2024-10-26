@@ -36,7 +36,7 @@ function handleLogin(event) {
     }
 }
 
-//Car return submission with final bill calculation
+// --- Car Return Submission with Final Bill Calculation ---
 function submitReturn(event) {
     event.preventDefault();
     const carImage = document.getElementById('carImage').files[0];
@@ -54,7 +54,7 @@ function submitReturn(event) {
     alert('Car return submitted successfully. Final bill calculated.');
 }
 
-//Utility to Calculate Final Bill
+// --- Utility to Calculate Final Bill ---
 function calculateFinalBill(rentalPeriod, carCondition) {
     let baseCost = 0;
     switch (rentalPeriod) {
@@ -83,7 +83,6 @@ function submitReservation(event) {
     const pickupBranch = document.getElementById("pickupBranch").value;
     const reservationId = generateReservationId();
 
-    // Store reservation details
     const reservationDetails = {
         reservationId,
         carType,
@@ -92,7 +91,6 @@ function submitReservation(event) {
         status: "Reserved"
     };
 
-    // Save reservation details to localStorage
     localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
     alert("Reservation successful! Your Reservation ID is: " + reservationId);
 }
@@ -109,7 +107,6 @@ function submitInspection(event) {
     const reservationId = document.getElementById("inspectionReservationId").value;
     const carCondition = document.getElementById("inspectionCarCondition").value;
 
-    // Retrieve reservation details from localStorage
     const reservationData = localStorage.getItem(reservationId);
     if (!reservationData) {
         alert("Reservation ID not found. Please check and try again.");
@@ -118,7 +115,6 @@ function submitInspection(event) {
 
     const reservationDetails = JSON.parse(reservationData);
 
-    // Calculate any applicable penalties based on car condition
     let damageCost = 0;
     if (carCondition === "Minor Damage") {
         damageCost = 100;
@@ -126,21 +122,13 @@ function submitInspection(event) {
         damageCost = 500;
     }
 
-    // Calculate final cost
     const finalBill = reservationDetails.pricePerDay + damageCost;
 
-    // Display final bill
     alert(`Inspection complete. Final bill for Reservation ID ${reservationId} is $${finalBill}.`);
     document.getElementById('finalBillAmount').innerText = `Your final bill is $${finalBill}.`;
 
-    // Update reservation status in localStorage
     reservationDetails.status = "Inspected";
     reservationDetails.finalBill = finalBill;
     reservationDetails.carCondition = carCondition;
     localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
-}
-
-// Utility function to display the final bill
-function displayFinalBill(billAmount) {
-    document.getElementById('finalBillAmount').innerText = `Your final bill is $${billAmount}.`;
 }
