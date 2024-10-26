@@ -27,18 +27,24 @@
         <h2>Reserve a Car</h2>
         <form id="reservationForm" onsubmit="submitReservation(event)">
             <select id="carType" required>
-                <option value="SUV">2024 Kia EV6 SUV</option>
-                <option value="Sedan">2023 Lucid Air Sedan</option>
-                <option value="Sports">Maserati Granturismo Folgore</option>
-                <option value="Compact">Mini Electric</option>
+                <option value="SUV">2024 Kia EV6 SUV    $150</option>
+                <option value="Sedan">2023 Lucid Air Sedan  $250</option>
+                <option value="Sports">Maserati Granturismo Folgore $450</option>
+                <option value="Compact">Mini Electric   $60</option>
             </select>
-            
+
             <select id="pickupBranch" required>
                 <option value="City">Orchard Road</option>
                 <option value="Airport">Changi Airport</option>
                 <option value="Suburb">Jurong East</option>
                 <option value="Downtown">Marina Bay</option>
                 <option value="Sentosa">Sentosa</option>
+            </select>
+
+            <select id="rentalPeriod" required>
+                <option value="1">12 hours  $50</option>
+                <option value="2">1 Days    $100</option>
+                <option value="3">1 Week    $600</option>
             </select>
 
             <button type="submit">Reserve Now</button>
