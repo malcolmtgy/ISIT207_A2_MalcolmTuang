@@ -44,24 +44,12 @@ function submitReturn(event) {
         alert('Please upload a picture of the car before submitting.');
         return;
     }
+    // Show a success popup message
+    alert("Car return submission successful! Thank you.");
+    document.getElementById("returnForm").reset();
 }
 
-// --- Utility to Calculate Final Bill ---
-function calculateFinalBill(rentalPeriod, carCondition) {
-    let baseCost = 0;
-    switch (rentalPeriod) {
-        case "12 hours": baseCost = 100; break;
-        case "1 day": baseCost = 200; break;
-        case "1 week": baseCost = 700; break;
-    }
-
-    const damageCost = carCondition === "Minor Damage" ? 100 : carCondition === "Major Damage" ? 500 : 0;
-    return baseCost + damageCost;
-}
-
-
-
-// Prices for different car types
+// --- Prices for different car types ---
 const carPrices = {
     "SUV": 150,
     "Sedan": 250,
@@ -75,27 +63,31 @@ const rentalPrices = {
     "3": 700 // 1 week
 };
 
-
+const damageCosts = {   
+    "No Damage": 0,
+    "Minor Damage": 100,
+    "Major Damage": 500
+}
 // --- Submit Reservation ---
 function submitReservation(event) {
     event.preventDefault();
-
+    
     const carType = document.getElementById("carType").value;
-    const pickupBranch = document.getElementById("pickupBranch").value;
     const rentalPeriod = document.getElementById("rentalPeriod").value;
     const reservationId = generateReservationId();
-
+    
+    const reservationCost = carPrices[carType] + rentalPrices[rentalPeriod];
+    
     const reservationDetails = {
         reservationId,
         carType,
-        pickupBranch,
         rentalPeriod,
-        pricePerDay: carPrices[carType],
-        rentalCost: rentalPrices[rentalPeriod],
+        baseCost: reservationCost,
         status: "Reserved"
     };
-
+    
     localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
+    localStorage.setItem("currentReservationId", reservationId); // Save for easy access
     alert("Reservation successful! Your Reservation ID is: " + reservationId);
 }
 
@@ -107,48 +99,38 @@ function generateReservationId() {
 // --- Submit Inspection ---
 function submitInspection(event) {
     event.preventDefault();
-
+    
     const reservationId = document.getElementById("inspectionReservationId").value;
     const carCondition = document.getElementById("inspectionCarCondition").value;
-    console.log("Reservation ID entered:", reservationId);
-
     const reservationData = localStorage.getItem(reservationId);
-    console.log("Retrieved reservation data from localStorage:", reservationData);
-
-    // Check if reservation data exists
+    
     if (!reservationData) {
-        document.getElementById("inspectionErrorMessage").innerText = "Reservation ID not found. Please check and try again.";
-        document.getElementById("inspectionErrorMessage").style.display = "block";
-        document.getElementById("inspectionSuccessMessage").style.display = "none";
+        alert("Reservation ID not found.");
         return;
     }
-
+    
     const reservationDetails = JSON.parse(reservationData);
-
-    // Calculate damage cost based on car condition
-    let damageCost = 0;
-    if (carCondition === "Minor Damage") {
-        damageCost = 100;
-    } else if (carCondition === "Major Damage") {
-        damageCost = 500;
-    }
-
-    // Total cost includes rental cost and damage cost
-    const finalBill = reservationDetails.rentalCost + damageCost;
-    console.log("Calculated final bill:", finalBill);
-
-    // Update reservation details with inspection results
+    const damageCost = damagePrices[carCondition];
+    const finalBill = reservationDetails.baseCost + damageCost;
+    
     reservationDetails.finalBill = finalBill;
-    reservationDetails.status = "Inspected";
     reservationDetails.carCondition = carCondition;
-
-    // Save updated reservation details back to localStorage
+    reservationDetails.status = "Inspected";
+    
     localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
     localStorage.setItem("currentFinalBill", finalBill); // Save for access on payment page
-    console.log("Updated reservation details:", reservationDetails);
-
-    // Display success message
+    
     document.getElementById("inspectionSuccessMessage").innerText = `Inspection complete. Final bill: $${finalBill}`;
     document.getElementById("inspectionSuccessMessage").style.display = "block";
-    document.getElementById("inspectionErrorMessage").style.display = "none";
 }
+
+// --- Payment Handler ---
+document.addEventListener("DOMContentLoaded", () => {
+    const finalBill = localStorage.getItem("currentFinalBill");
+    if (finalBill) {
+        document.getElementById("finalBillDisplay").style.display = "block";
+        document.getElementById("finalBillAmount").innerText = `Your final bill is $${finalBill}`;
+    } else {
+        document.getElementById("finalBillDisplay").style.display = "none";
+    }
+});
