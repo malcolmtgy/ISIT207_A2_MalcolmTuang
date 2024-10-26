@@ -99,34 +99,41 @@ function generateReservationId() {
 // --- Submit Inspection ---
 function submitInspection(event) {
     event.preventDefault();
-    
+
     const reservationId = document.getElementById("inspectionReservationId").value;
     const carCondition = document.getElementById("inspectionCarCondition").value;
     const reservationData = localStorage.getItem(reservationId);
-    
+
     if (!reservationData) {
-        alert("Reservation ID not found.");
+        // Error popup if reservation ID is not found
+        alert("Error: Reservation ID not found. Please check and try again.");
         return;
     }
-    
+
     const reservationDetails = JSON.parse(reservationData);
-    const damageCost = damagePrices[carCondition];
-    const finalBill = reservationDetails.baseCost + damageCost;
-    
+
+    // Calculate damage cost based on car condition
+    let damageCost = 0;
+    if (carCondition === "Minor Damage") {
+        damageCost = 100;
+    } else if (carCondition === "Major Damage") {
+        damageCost = 500;
+    }
+
+    const finalBill = reservationDetails.pricePerDay + damageCost;
     reservationDetails.finalBill = finalBill;
-    reservationDetails.carCondition = carCondition;
     reservationDetails.status = "Inspected";
-    
+
     localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
-    localStorage.setItem("currentFinalBill", finalBill); // Save for access on payment page
-    
-    document.getElementById("inspectionSuccessMessage").innerText = `Inspection complete. Final bill: $${finalBill}`;
-    document.getElementById("inspectionSuccessMessage").style.display = "block";
+    localStorage.setItem("currentFinalBill", finalBill);  // Set final bill for retrieval
+
+    alert(`Inspection complete!`);
 }
 
-// --- Payment Handler ---
+// --- Display Final Bill ---
 document.addEventListener("DOMContentLoaded", () => {
     const finalBill = localStorage.getItem("currentFinalBill");
+
     if (finalBill) {
         document.getElementById("finalBillDisplay").style.display = "block";
         document.getElementById("finalBillAmount").innerText = `Your final bill is $${finalBill}`;
