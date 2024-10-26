@@ -41,7 +41,7 @@ function submitReturn(event) {
     event.preventDefault();
     const carImage = document.getElementById('carImage').files[0];
     const carCondition = document.getElementById('carCondition').value;
-    const rentalPeriod = " "; // Can be dynamic based on user input
+    const rentalPeriod = document.getElementById('rentalPeriod').value;
 
     if (!carImage) {
         alert('Please upload a picture of the car before submitting.');
@@ -65,4 +65,82 @@ function calculateFinalBill(rentalPeriod, carCondition) {
 
     const damageCost = carCondition === "Minor Damage" ? 100 : carCondition === "Major Damage" ? 500 : 0;
     return baseCost + damageCost;
+}
+
+// Prices for different car types
+const carPrices = {
+    "SUV": 150,
+    "Sedan": 250,
+    "Sports": 450,
+    "Compact": 60
+};
+
+// Function to submit reservation
+function submitReservation(event) {
+    event.preventDefault();
+
+    const carType = document.getElementById("carType").value;
+    const pickupBranch = document.getElementById("pickupBranch").value;
+    const reservationId = generateReservationId();
+
+    // Store reservation details
+    const reservationDetails = {
+        reservationId,
+        carType,
+        pickupBranch,
+        pricePerDay: carPrices[carType],
+        status: "Reserved"
+    };
+
+    // Save reservation details to localStorage
+    localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
+    alert("Reservation successful! Your Reservation ID is: " + reservationId);
+}
+
+// Generate a unique Reservation ID
+function generateReservationId() {
+    return 'AZR' + Math.floor(Math.random() * 10000);
+}
+
+// Function to submit inspection
+function submitInspection(event) {
+    event.preventDefault();
+
+    const reservationId = document.getElementById("inspectionReservationId").value;
+    const carCondition = document.getElementById("inspectionCarCondition").value;
+
+    // Retrieve reservation details from localStorage
+    const reservationData = localStorage.getItem(reservationId);
+    if (!reservationData) {
+        alert("Reservation ID not found. Please check and try again.");
+        return;
+    }
+
+    const reservationDetails = JSON.parse(reservationData);
+
+    // Calculate any applicable penalties based on car condition
+    let damageCost = 0;
+    if (carCondition === "Minor Damage") {
+        damageCost = 100;
+    } else if (carCondition === "Major Damage") {
+        damageCost = 500;
+    }
+
+    // Calculate final cost
+    const finalBill = reservationDetails.pricePerDay + damageCost;
+
+    // Display final bill
+    alert(`Inspection complete. Final bill for Reservation ID ${reservationId} is $${finalBill}.`);
+    document.getElementById('finalBillAmount').innerText = `Your final bill is $${finalBill}.`;
+
+    // Update reservation status in localStorage
+    reservationDetails.status = "Inspected";
+    reservationDetails.finalBill = finalBill;
+    reservationDetails.carCondition = carCondition;
+    localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
+}
+
+// Utility function to display the final bill
+function displayFinalBill(billAmount) {
+    document.getElementById('finalBillAmount').innerText = `Your final bill is $${billAmount}.`;
 }
