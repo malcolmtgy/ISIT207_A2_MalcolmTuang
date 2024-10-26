@@ -29,18 +29,18 @@
     <form id="inspectionForm" onsubmit="submitInspection(event)">
         <label for="inspectionReservationId">Reservation ID:</label>
         <input type="text" id="inspectionReservationId" required>
-    
+
         <label for="inspectionCarCondition">Car Condition After Inspection:</label>
         <select id="inspectionCarCondition" required>
             <option value="No Damage">No Damage</option>
             <option value="Minor Damage">Minor Damage</option>
             <option value="Major Damage">Major Damage</option>
         </select>
-    
+
         <button type="submit">Submit Inspection</button>
     </form>
-    
- <!-- Display error and success messages -->
+
+    <!-- Display error and success messages -->
     <div id="inspectionErrorMessage" style="display: none; margin-top: 15px; color: red;"></div>
     <div id="inspectionSuccessMessage" style="display: none; margin-top: 15px; color: green;"></div>
 </section>
