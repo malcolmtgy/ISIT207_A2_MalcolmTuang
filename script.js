@@ -112,9 +112,6 @@ function submitInspection(event) {
 
     // Show alert that inspection is complete
     alert(`Inspection complete for Reservation ID ${reservationId}. Condition: ${carCondition}`);
-    
-    // Optionally clear the form after submission
-    document.getElementById("inspectionForm").reset();
 }
 
 
@@ -133,7 +130,6 @@ function processPayment(event) {
     }
 
     alert('Payment successful! Thank you for your transaction.');
-    document.getElementById("paymentForm").reset();
 }
 
 

@@ -7,6 +7,7 @@
     <title>AZoom Car Rental - Reserve</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Navigation Bar -->
     <header>
@@ -26,46 +27,50 @@
 
 
     <!-- Reservation Form -->
-     
-    <section id="car-reservation">
-        <h2>Reserve a Car</h2>
-        <form id="reservationForm" onsubmit="submitReservation(event)">
-            <select id="carType" required>
-                <option value="SUV">2024 Kia EV6 SUV    $150</option>
-                <option value="Sedan">2023 Lucid Air Sedan  $250</option>
-                <option value="Sports">Maserati Granturismo Folgore $450</option>
-                <option value="Compact">Mini Electric $60</option>
-            </select>
-
-            <select id="pickupBranch" required>
-                <option value="City">Orchard Road</option>
-                <option value="Airport">Changi Airport</option>
-                <option value="Suburb">Jurong East</option>
-                <option value="Downtown">Marina Bay</option>
-                <option value="Sentosa">Sentosa</option>
-            </select>
-
-            <select id="rentalPeriod" required>
-                <option value="1">12 hours  $100</option>
-                <option value="2">1 Days    $200</option>
-                <option value="3">1 Week    $700</option>
-            </select>
-
+    <form id="reservationForm" onsubmit="submitReservation(event)">
+        <div id="car-reservation" class="section">
+            <h2>Reserve a Car</h2>
+            
+            <div>
+                <label for="carType">Select Car:</label>
+                <select id="carType" required>
+                    <option value="SUV">2024 Kia EV6 SUV ($150)</option>
+                    <option value="Sedan">2023 Lucid Air Sedan ($250)</option>
+                    <option value="Sports">Maserati Granturismo Folgore ($450)</option>
+                    <option value="Compact">Mini Electric ($60)</option>
+                </select>
+            </div>
+    
+            <div>
+                <label for="rentalPeriod">Rental Period:</label>
+                <select id="rentalPeriod" required>
+                    <option value="1">12 hours ($100)</option>
+                    <option value="2">1 Day ($200)</option>
+                    <option value="3">1 Week ($700)</option>
+                </select>
+            </div>
+    
             <button type="submit">Reserve Now</button>
-        </form>
-    </section>
+        </div>
+    </form>
 
     <!-- Car Return Section -->
-    <section id="car-return">
-        <h2>Return a Car</h2>
-        <p>Take a picture of your car at the designated car park and upload it below.</p>
-        <form id="returnForm" onsubmit="submitReturn(event)">
-            <label for="carImage">Upload Car Image:</label>
-            <input type="file" id="carImage" accept="image/*" required />
+    <form id="returnForm" onsubmit="submitReturn(event)">
+        <div id="car-return" class="section">
+            <h2>Return a Car</h2>
+            
+            <p>Take a picture of your car at the designated car park and upload it below.</p>
+            
+            <div>
+                <label for="carImage">Upload Car Image:</label>
+                <input type="file" id="carImage" required accept="image/*">
+            </div>
+    
             <button type="submit">Return Car</button>
-        </form>
-    </section>
+        </div>
+    </form>
 
     <script src="script.js"></script>
+
 </body>
 </html>

@@ -24,21 +24,32 @@
 
     <!-- Registration Section -->
     <section id="register" class="section">
-        <h2>Register</h2>
-        <form id="registerForm" onsubmit="registerUser(event)">
-            <label for="regUsername">Username:</label>
-            <input type="text" id="regUsername" required>
-            
-            <label for="regEmail">Email:</label>
-            <input type="text" id="regEmail" required>
-            
-            <label for="regPassword">Password:</label>
-            <input type="password" id="regPassword" required>
-            
-            <button type="submit">Register</button>
 
-            <p>Already have an account? <a href="login.html">Login</a> here.</p>
-        </form>
+        <h2>Register</h2>
+        
+        <form id="registerForm" onsubmit="handleRegister(event)">
+            <div id="register" class="section">
+                <h2>Register</h2>
+                
+                <div>
+                    <label for="regUsername">Username:</label>
+                    <input type="text" id="regUsername" required>
+                </div>
+        
+                <div>
+                    <label for="regEmail">Email:</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+        
+                <div>
+                    <label for="regPassword">Password:</label>
+                    <input type="password" id="regPassword" required>
+                </div>
+        
+                <button type="submit">Register</button>
+                
+                <p>Already have an account? <a href="login.html">Login</a> here.</p>
+            </div>
     </section>
     <!-- Footer -->
     <footer>
