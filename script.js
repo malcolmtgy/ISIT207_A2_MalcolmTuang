@@ -77,6 +77,34 @@ const rentalPrices = {
 
 
 // --- Submit Reservation ---
+function submitReservation(event) {
+    event.preventDefault();
+
+    const carType = document.getElementById("carType").value;
+    const pickupBranch = document.getElementById("pickupBranch").value;
+    const rentalPeriod = document.getElementById("rentalPeriod").value;
+    const reservationId = generateReservationId();
+
+    const reservationDetails = {
+        reservationId,
+        carType,
+        pickupBranch,
+        rentalPeriod,
+        pricePerDay: carPrices[carType],
+        rentalCost: rentalPrices[rentalPeriod],
+        status: "Reserved"
+    };
+
+    localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
+    alert("Reservation successful! Your Reservation ID is: " + reservationId);
+}
+
+// --- Generate a unique Reservation ID ---
+function generateReservationId() {
+    return 'AZR' + Math.floor(Math.random() * 10000);
+}
+
+// --- Submit Inspection ---
 function submitInspection(event) {
     event.preventDefault();
 
@@ -124,14 +152,3 @@ function submitInspection(event) {
     document.getElementById("inspectionSuccessMessage").style.display = "block";
     document.getElementById("inspectionErrorMessage").style.display = "none";
 }
-
-// --- Display Final Bill on Payment Page ---
-document.addEventListener("DOMContentLoaded", () => {
-    const finalBill = localStorage.getItem("currentFinalBill");
-    if (finalBill) {
-        document.getElementById("finalBillDisplay").style.display = "block";
-        document.getElementById("finalBillAmount").innerText = `Your final bill is $${finalBill}`;
-    } else {
-        document.getElementById("finalBillDisplay").style.display = "none";
-    }
-});
