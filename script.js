@@ -36,7 +36,7 @@ function handleLogin(event) {
     }
 }
 
-// --- Car Return Submission with Final Bill Calculation ---
+//Car return submission with final bill calculation
 function submitReturn(event) {
     event.preventDefault();
     const carImage = document.getElementById('carImage').files[0];
@@ -54,7 +54,7 @@ function submitReturn(event) {
     alert('Car return submitted successfully. Final bill calculated.');
 }
 
-// --- Utility to Calculate Final Bill ---
+//Utility to Calculate Final Bill
 function calculateFinalBill(rentalPeriod, carCondition) {
     let baseCost = 0;
     switch (rentalPeriod) {
