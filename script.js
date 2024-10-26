@@ -89,6 +89,7 @@ function submitReservation(event) {
     localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
     localStorage.setItem("currentReservationId", reservationId); // Save for easy access
     alert("Reservation successful! Your Reservation ID is: " + reservationId);
+    document.getElementById("reservationForm").reset();
 }
 
 // --- Generate a unique Reservation ID ---
@@ -97,40 +98,39 @@ function generateReservationId() {
 }
 
 // --- Submit Inspection ---
+
 function submitInspection(event) {
     event.preventDefault();
-    
+
     const reservationId = document.getElementById("inspectionReservationId").value;
     const carCondition = document.getElementById("inspectionCarCondition").value;
+
     const reservationData = localStorage.getItem(reservationId);
-    
     if (!reservationData) {
-        alert("Reservation ID not found.");
+        alert("Reservation ID not found. Please check and try again.");
         return;
     }
-    
-    const reservationDetails = JSON.parse(reservationData);
-    const damageCost = damagePrices[carCondition];
-    const finalBill = reservationDetails.baseCost + damageCost;
-    
-    reservationDetails.finalBill = finalBill;
-    reservationDetails.carCondition = carCondition;
-    reservationDetails.status = "Inspected";
-    
-    localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
-    localStorage.setItem("currentFinalBill", finalBill); // Save for access on payment page
-    
-    document.getElementById("inspectionSuccessMessage").innerText = `Inspection complete. Final bill: $${finalBill}`;
-    document.getElementById("inspectionSuccessMessage").style.display = "block";
+
+    // Show alert that inspection is complete
+    alert(`Inspection complete for Reservation ID ${reservationId}. Condition: ${carCondition}`);
 }
 
+
 // --- Payment Handler ---
-document.addEventListener("DOMContentLoaded", () => {
-    const finalBill = localStorage.getItem("currentFinalBill");
-    if (finalBill) {
-        document.getElementById("finalBillDisplay").style.display = "block";
-        document.getElementById("finalBillAmount").innerText = `Your final bill is $${finalBill}`;
-    } else {
-        document.getElementById("finalBillDisplay").style.display = "none";
+function processPayment(event) {
+    event.preventDefault();
+    
+    const creditCardNumber = document.getElementById("creditCardNumber").value;
+    const expiryDate = document.getElementById("expiryDate").value;
+    const cvv = document.getElementById("cvv").value;
+
+    // Validate payment details (basic validation)
+    if (creditCardNumber.length < 16 || cvv.length < 3) {
+        alert('Please enter valid payment details.');
+        return;
     }
-});
+
+    alert('Payment successful! Thank you for your transaction.');
+}
+
+
