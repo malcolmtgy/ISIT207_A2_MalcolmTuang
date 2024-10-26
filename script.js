@@ -53,19 +53,16 @@ function submitReturn(event) {
 function calculateFinalBill(rentalPeriod, carCondition) {
     let baseCost = 0;
     switch (rentalPeriod) {
-        case "12 hours": baseCost = 50; break;
-        case "1 day": baseCost = 100; break;
-        case "1 week": baseCost = 600; break;
+        case "12 hours": baseCost = 100; break;
+        case "1 day": baseCost = 200; break;
+        case "1 week": baseCost = 700; break;
     }
 
     const damageCost = carCondition === "Minor Damage" ? 100 : carCondition === "Major Damage" ? 500 : 0;
     return baseCost + damageCost;
 }
 
-const finalBill = calculateFinalBill(rentalPeriod, carCondition);
-document.getElementById('finalBillDisplay').style.display = 'block';
-document.getElementById('finalBillAmount').innerText = `Your final bill is $${finalBill}.`;
-alert('Car return submitted successfully. Final bill calculated.');
+
 
 // Prices for different car types
 const carPrices = {
@@ -75,19 +72,29 @@ const carPrices = {
     "Compact": 60
 };
 
+const rentalPrices = {
+    "1": 100, // 12 hours
+    "2": 200, // 1 day
+    "3": 700 // 1 week
+};
+
+
 // Function to submit reservation
 function submitReservation(event) {
     event.preventDefault();
 
     const carType = document.getElementById("carType").value;
     const pickupBranch = document.getElementById("pickupBranch").value;
+    const rentalPeriod = document.getElementById("rentalPeriod").value;
     const reservationId = generateReservationId();
 
     const reservationDetails = {
         reservationId,
         carType,
         pickupBranch,
+        rentalPeriod,
         pricePerDay: carPrices[carType],
+        rentalCost: rentalPrices[rentalPeriod],
         status: "Reserved"
     };
 
@@ -115,6 +122,7 @@ function submitInspection(event) {
 
     const reservationDetails = JSON.parse(reservationData);
 
+    // Calculate total cost based on rental and any damages
     let damageCost = 0;
     if (carCondition === "Minor Damage") {
         damageCost = 100;
@@ -122,17 +130,28 @@ function submitInspection(event) {
         damageCost = 500;
     }
 
-    const finalBill = reservationDetails.pricePerDay + damageCost;
+    const finalBill = reservationDetails.rentalCost + damageCost;
 
-    alert(`Inspection complete. Final bill for Reservation ID ${reservationId} is $${finalBill}.`);
-    document.getElementById('finalBillAmount').innerText = `Your final bill is $${finalBill}.`;
-
-    reservationDetails.status = "Inspected";
     reservationDetails.finalBill = finalBill;
+    reservationDetails.status = "Inspected";
     reservationDetails.carCondition = carCondition;
-    localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
 
-     // Display success message and final bill
-     document.getElementById("inspectionSuccessMessage").innerText = `Inspection submission complete. Final bill for Reservation ID ${reservationId} is $${finalBill}.`;
-     document.getElementById("inspectionSuccessMessage").style.display = "block";
+    // Save updated reservation details and final bill to localStorage
+    localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
+    localStorage.setItem("currentFinalBill", finalBill); // Save final bill for payment page access
+
+    // Show success message with final bill amount
+    document.getElementById("inspectionSuccessMessage").innerText = `Inspection complete. Final bill: $${finalBill}`;
+    document.getElementById("inspectionSuccessMessage").style.display = "block";
 }
+
+// Display final bill on payment page load
+document.addEventListener("DOMContentLoaded", () => {
+    const finalBill = localStorage.getItem("currentFinalBill");
+    if (finalBill) {
+        document.getElementById("finalBillDisplay").style.display = "block";
+        document.getElementById("finalBillAmount").innerText = `Your final bill is $${finalBill}`;
+    } else {
+        document.getElementById("finalBillDisplay").style.display = "none";
+    }
+});
