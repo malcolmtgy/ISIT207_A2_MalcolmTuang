@@ -22,9 +22,17 @@
     </header>
 
     <!-- Reservation Form -->
+     
     <section id="car-reservation">
         <h2>Reserve a Car</h2>
         <form id="reservationForm" onsubmit="submitReservation(event)">
+            <select id="carType" required>
+                <option value="SUV">2024 Kia EV6 SUV</option>
+                <option value="Sedan">2023 Lucid Air Sedan</option>
+                <option value="Sports">Maserati Granturismo Folgore</option>
+                <option value="Compact">Mini Electric</option>
+            </select>
+            
             <select id="pickupBranch" required>
                 <option value="City">Orchard Road</option>
                 <option value="Airport">Changi Airport</option>
