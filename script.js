@@ -87,8 +87,10 @@ function submitReservation(event) {
     };
     
     localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
-    localStorage.setItem("currentReservationId", reservationId); // Save for easy access
+    localStorage.setItem("currentReservationId", reservationId);
+    localStorage.setItem("currentReservationCost", reservationCost);
     alert("Reservation successful! Your Reservation ID is: " + reservationId);
+    document.getElementById("reservationForm").reset();
 }
 
 // --- Generate a unique Reservation ID ---
