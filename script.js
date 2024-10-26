@@ -47,7 +47,6 @@ function submitReturn(event) {
         alert('Please upload a picture of the car before submitting.');
         return;
     }
-
 }
 
 // --- Utility to Calculate Final Bill ---
@@ -61,12 +60,12 @@ function calculateFinalBill(rentalPeriod, carCondition) {
 
     const damageCost = carCondition === "Minor Damage" ? 100 : carCondition === "Major Damage" ? 500 : 0;
     return baseCost + damageCost;
-
-    const finalBill = calculateFinalBill(rentalPeriod, carCondition);
-    document.getElementById('finalBillDisplay').style.display = 'block';
-    document.getElementById('finalBillAmount').innerText = `Your final bill is $${finalBill}.`;
-    alert('Car return submitted successfully. Final bill calculated.');
 }
+
+const finalBill = calculateFinalBill(rentalPeriod, carCondition);
+document.getElementById('finalBillDisplay').style.display = 'block';
+document.getElementById('finalBillAmount').innerText = `Your final bill is $${finalBill}.`;
+alert('Car return submitted successfully. Final bill calculated.');
 
 // Prices for different car types
 const carPrices = {
