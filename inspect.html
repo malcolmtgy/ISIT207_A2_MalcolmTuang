@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AZoom Car Rental - Inspection</title>
-</head>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AZoom Car Rental - Inspection</title>
+    </head>
     <!-- Navigation Bar -->
     <header>
         <nav>
@@ -25,27 +25,23 @@
 
 <body>
     <section id="inspection-section">
+        <h2>Inspect Returned Car</h2>
         <!-- Inspection Form -->
         <form id="inspectionForm" onsubmit="submitInspection(event)">
-            <div id="car-inspection" class="section">
-                <h2>Inspect Returned Car</h2>
-
-                <div>
-                    <label for="inspectionReservationId">Reservation ID:</label>
-                    <input type="text" id="inspectionReservationId" required>
-                </div>
+            <div>
+                <label for="inspectionReservationId">Reservation ID:</label>
+                <input type="text" id="inspectionReservationId" required>
+            </div>
             
-                <div>
-                    <label for="inspectionCarCondition">Car Condition After Inspection:</label>
+            <div>
+                <label for="inspectionCarCondition">Car Condition After Inspection:</label>
                     <select id="inspectionCarCondition" required>
                         <option value="No Damage">No Damage</option>
                         <option value="Minor Damage">Minor Damage</option>
                         <option value="Major Damage">Major Damage</option>
                     </select>
-                </div>
-            
-                <button type="submit">Submit Inspection</button>
             </div>
+                <button type="submit">Submit Inspection</button>
         </form>
         <script src="script.js"></script>
     </section>
