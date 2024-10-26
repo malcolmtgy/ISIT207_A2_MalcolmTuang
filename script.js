@@ -36,13 +36,10 @@ function handleLogin(event) {
     }
 }
 
-// --- Car Return Submission with Final Bill Calculation ---
+// --- Car Return Submission Handler ---
 function submitReturn(event) {
     event.preventDefault();
     const carImage = document.getElementById('carImage').files[0];
-    const carCondition = document.getElementById('carCondition').value;
-    const rentalPeriod = document.getElementById('rentalPeriod').value;
-
     if (!carImage) {
         alert('Please upload a picture of the car before submitting.');
         return;
@@ -79,7 +76,7 @@ const rentalPrices = {
 };
 
 
-// Function to submit reservation
+// --- Submit Reservation ---
 function submitReservation(event) {
     event.preventDefault();
 
@@ -102,21 +99,22 @@ function submitReservation(event) {
     alert("Reservation successful! Your Reservation ID is: " + reservationId);
 }
 
-// Generate a unique Reservation ID
+// --- Generate a unique Reservation ID ---
 function generateReservationId() {
     return 'AZR' + Math.floor(Math.random() * 10000);
 }
 
-// Function to submit inspection
+// --- Submit Inspection ---
 function submitInspection(event) {
     event.preventDefault();
 
     const reservationId = document.getElementById("inspectionReservationId").value;
     const carCondition = document.getElementById("inspectionCarCondition").value;
-
     const reservationData = localStorage.getItem(reservationId);
+
     if (!reservationData) {
-        alert("Reservation ID not found. Please check and try again.");
+        document.getElementById("inspectionErrorMessage").innerText = "Reservation ID not found. Please check and try again.";
+        document.getElementById("inspectionErrorMessage").style.display = "block";
         return;
     }
 
@@ -132,6 +130,7 @@ function submitInspection(event) {
 
     const finalBill = reservationDetails.rentalCost + damageCost;
 
+    // Update reservation details with final bill
     reservationDetails.finalBill = finalBill;
     reservationDetails.status = "Inspected";
     reservationDetails.carCondition = carCondition;
@@ -143,9 +142,10 @@ function submitInspection(event) {
     // Show success message with final bill amount
     document.getElementById("inspectionSuccessMessage").innerText = `Inspection complete. Final bill: $${finalBill}`;
     document.getElementById("inspectionSuccessMessage").style.display = "block";
+    document.getElementById("inspectionErrorMessage").style.display = "none";
 }
 
-// Display final bill on payment page load
+// --- Display Final Bill on Payment Page ---
 document.addEventListener("DOMContentLoaded", () => {
     const finalBill = localStorage.getItem("currentFinalBill");
     if (finalBill) {
