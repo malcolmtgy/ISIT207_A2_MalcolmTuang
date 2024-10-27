@@ -58,11 +58,10 @@ const carPrices = {
 };
 
 const rentalPrices = {
-    "1": 100, // 12 hours
-    "2": 200, // 1 day
-    "3": 700 // 1 week
-};
-
+    "1": 100,
+    "2": 200,
+    "3": 700 
+}
 const damageCosts = {   
     "No Damage": 0,
     "Minor Damage": 100,
