@@ -91,7 +91,7 @@ function submitReservation(event) {
     
     localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
     localStorage.setItem("currentReservationId", reservationId);
-    
+
     if (creditCardNumber.length < 16 || cvv.length < 3) {
         alert('Please enter valid payment details.');
         return;
@@ -141,20 +141,3 @@ function processPayment(event) {
     alert('Payment successful! Thank you for your transaction.');
 }
 
-
-function displayBill() {
-    const reservationDetails = JSON.parse(localStorage.getItem("reservationDetails"));
-    if (!reservationDetails) return;
-
-    const { carType, rentalPeriod, carPrice, rentalPrice } = reservationDetails;
-    const totalCost = carPrice + rentalPrice;
-
-    document.getElementById("billDetails").innerHTML = `
-        <p>Car Type: ${carType} - $${carPrice}</p>
-        <p>Rental Period: ${rentalPeriod} - $${rentalPrice}</p>
-        <p>Total Cost: $${totalCost}</p>
-    `;
-}
-
-// Call displayBill on page load
-window.onload = displayBill;
