@@ -76,13 +76,16 @@ function submitReservation(event) {
     const rentalPeriod = document.getElementById("rentalPeriod").value;
     const reservationId = generateReservationId();
     
-    const reservationCost = carPrices[carType] + rentalPrices[rentalPeriod];
+    const carPrice = carPrices[carType];
+    const rentalPrice = rentalPrices[rentalPeriod];
+
     
     const reservationDetails = {
         reservationId,
         carType,
         rentalPeriod,
-        baseCost: reservationCost,
+        carPrice,
+        rentalPrice,
         status: "Reserved"
     };
     
@@ -134,3 +137,19 @@ function processPayment(event) {
 }
 
 
+function displayBill() {
+    const reservationDetails = JSON.parse(localStorage.getItem("reservationDetails"));
+    if (!reservationDetails) return;
+
+    const { carType, rentalPeriod, carPrice, rentalPrice } = reservationDetails;
+    const totalCost = carPrice + rentalPrice;
+
+    document.getElementById("billDetails").innerHTML = `
+        <p>Car Type: ${carType} - $${carPrice}</p>
+        <p>Rental Period: ${rentalPeriod} - $${rentalPrice}</p>
+        <p>Total Cost: $${totalCost}</p>
+    `;
+}
+
+// Call displayBill on page load
+window.onload = displayBill;
