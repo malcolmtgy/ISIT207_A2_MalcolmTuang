@@ -90,11 +90,7 @@ function submitReservation(event) {
     
     localStorage.setItem(reservationId, JSON.stringify(reservationDetails));
     localStorage.setItem("currentReservationId", reservationId);
-
-    if (creditCardNumber.length < 16 || cvv.length < 3) {
-        alert('Please enter valid payment details.');
-        return;
-    }
+    
     alert("Reservation successful! Your Reservation ID is: " + reservationId);
     document.getElementById("reservationForm").reset();
 }
